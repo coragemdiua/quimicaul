@@ -239,7 +239,7 @@ function gravar(k, v){ try{ localStorage.setItem(k, JSON.stringify(v)); return t
 /* ===== Firebase (Firestore + Authentication via REST, sem bibliotecas) =====
    Cole abaixo os dois valores do seu projecto Firebase.
    Enquanto estiverem por preencher, o site usa só o localStorage. */
-const FIREBASE = {apiKey:'COLE_AQUI_A_API_KEY', projectId:'COLE_AQUI_O_PROJECT_ID'};
+const FIREBASE = {apiKey:'AIzaSyAkeg-7btwqlIF14eMDkUKVavUKZD0uRr0', projectId:'quimicaul-2a093'};
 const NUVEM = !FIREBASE.apiKey.startsWith('COLE') && !FIREBASE.projectId.startsWith('COLE');
 const FS = 'https://firestore.googleapis.com/v1/projects/'+FIREBASE.projectId+'/databases/(default)/documents/galeria';
 let token = null;
