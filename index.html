@@ -144,6 +144,44 @@ mark{background:#fff0a8;border-radius:3px;padding:0 1px}
 .funcao{display:inline-block;margin:8px 0;padding:2px 12px;border-radius:99px;background:#dff3ea;color:#0f7a4c;font-weight:700;font-size:.82rem}
 .pessoa a{display:block;color:var(--azul2);font-size:.92rem;word-break:break-all}
 .pessoa a:hover{text-decoration:underline}
+/* ===== Visualizador próprio (vídeo, foto e documento) ===== */
+.box.lb{max-width:1000px;border-radius:18px}
+.box.lb:fullscreen{max-width:none;max-height:none;border-radius:0;display:flex;flex-direction:column}
+.box.lb:fullscreen .media{flex:1;height:auto;max-height:none;aspect-ratio:auto}
+.lbtopo{position:sticky;top:0;z-index:5;display:flex;align-items:center;gap:10px;padding:10px 12px 10px 18px;background:linear-gradient(90deg,var(--azul),var(--azul2));color:#fff}
+.lbtopo h3{flex:1;min-width:0;font-size:1rem;line-height:1.3;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.lbtipo{background:var(--verde);border-radius:99px;padding:2px 11px;font-size:.72rem;font-weight:800;letter-spacing:.5px;text-transform:uppercase}
+.lbbtn,.lbtopo .fechar{position:static;flex:none;width:36px;height:36px;border:0;border-radius:50%;background:#ffffff26;color:#fff;font-size:1.3rem;cursor:pointer;display:grid;place-items:center;transition:background .2s}
+.lbbtn:hover,.lbtopo .fechar:hover{background:var(--verde)}
+.box.lb .media{position:relative;background:linear-gradient(160deg,#06263f,#0b4f8a)}
+.box.lb .media.foto{max-height:none;min-height:240px}
+.box.lb .legenda{border-top:4px solid var(--verde)}
+.carr{position:absolute;inset:0;z-index:0;display:grid;place-content:center;justify-items:center;gap:10px;color:#cfe6f7;pointer-events:none;text-align:center;padding:20px}
+.carr i{width:42px;height:42px;border-radius:50%;border:4px solid #ffffff33;border-top-color:var(--verde);animation:gira .9s linear infinite}
+@keyframes gira{to{transform:rotate(360deg)}}
+.media iframe{position:relative;z-index:1}
+/* Player de vídeo (mp4) */
+.pl{position:relative;align-self:stretch;width:100%;height:100%;background:#000;display:flex;flex-direction:column}
+.pl video{flex:1;min-height:0;width:100%;object-fit:contain;background:#000;cursor:pointer}
+.pctl{display:flex;align-items:center;gap:10px;padding:8px 12px;background:linear-gradient(90deg,var(--azul),var(--azul2));color:#fff;font-size:.82rem;font-variant-numeric:tabular-nums}
+.pb{flex:none;width:34px;height:34px;border:0;border-radius:50%;background:#ffffff26;color:#fff;cursor:pointer;display:grid;place-items:center;transition:background .2s}
+.pb:hover{background:var(--verde)}
+.pb svg{width:18px;height:18px;fill:#fff}
+.pbig{position:absolute;left:50%;top:calc(50% - 25px);transform:translate(-50%,-50%);width:72px;height:72px;border:0;border-radius:50%;background:#1fa56bdd;display:grid;place-items:center;cursor:pointer;box-shadow:0 6px 24px #0007;transition:transform .2s}
+.pbig svg{width:32px;height:32px;fill:#fff;margin-left:4px}
+.pbig:hover{transform:translate(-50%,-50%) scale(1.1)}
+.pl.tocando .pbig{display:none}
+.rg{-webkit-appearance:none;appearance:none;flex:1;min-width:40px;height:6px;border-radius:99px;background:linear-gradient(90deg,var(--verde) var(--p,0%),#ffffff55 var(--p,0%));cursor:pointer}
+.rg.vol{flex:none;width:70px}
+.rg::-webkit-slider-thumb{-webkit-appearance:none;width:15px;height:15px;border-radius:50%;background:#fff;border:3px solid var(--verde)}
+.rg::-moz-range-thumb{width:9px;height:9px;border-radius:50%;background:#fff;border:3px solid var(--verde)}
+@media(max-width:560px){.rg.vol{display:none}}
+/* Visualizador de imagem */
+.vi{display:flex;width:100%;max-height:70vh;overflow:auto}
+.vi img{display:block;margin:auto;max-width:100%;max-height:70vh;cursor:zoom-in}
+.vtools{position:absolute;left:50%;bottom:12px;transform:translateX(-50%);z-index:2;display:flex;align-items:center;gap:8px;padding:6px 10px;border-radius:99px;background:linear-gradient(90deg,#0b4f8af2,#1479c9f2);color:#fff;font-size:.85rem;box-shadow:0 4px 16px #0006}
+.vtools .pb{font-size:1.15rem;font-weight:700}
+.vz{min-width:46px;text-align:center;font-weight:700}
 @media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
 </style>
 </head>
@@ -244,10 +282,15 @@ mark{background:#fff0a8;border-radius:3px;padding:0 1px}
 <footer>Universidade Licungo - Quelimane - Licenciatura em Ensino de Química</footer>
 
 <!-- Lightbox -->
-<div class="modal" id="mLight"><div class="box">
-  <button class="fechar" data-fechar aria-label="Fechar">×</button>
+<div class="modal" id="mLight"><div class="box lb">
+  <div class="lbtopo">
+    <span class="lbtipo" id="lbTipo"></span>
+    <h3 id="lbTitulo"></h3>
+    <button class="lbbtn" id="lbFull" type="button" aria-label="Ecrã inteiro" title="Ecrã inteiro"><svg viewBox="0 0 24 24" width="18" height="18" fill="#fff"><path d="M5 5h5v2H7v3H5zm9 0h5v5h-2V7h-3zM5 14h2v3h3v2H5zm12 0h2v5h-5v-2h3z"/></svg></button>
+    <button class="fechar" data-fechar aria-label="Fechar">×</button>
+  </div>
   <div class="media" id="lbMedia"></div>
-  <div class="legenda"><h3 id="lbTitulo"></h3><time id="lbData"></time><p id="lbDesc"></p><div class="row" id="lbAcoes"></div></div>
+  <div class="legenda"><time id="lbData"></time><p id="lbDesc"></p><div class="row" id="lbAcoes"></div></div>
 </div></div>
 
 <!-- Pedido de código -->
@@ -397,7 +440,7 @@ function resolver(item){
     if(d){ const s = 'https://drive.google.com/thumbnail?id='+d+'&sz=w1600'; return {modo:'img', src:s, thumb:'https://drive.google.com/thumbnail?id='+d+'&sz=w800'}; }
     return {modo:'img', src:url, thumb:url};
   }
-  if(y) return {modo:'iframe', src:'https://www.youtube.com/embed/'+y+'?autoplay=1&rel=0', thumb:'https://img.youtube.com/vi/'+y+'/hqdefault.jpg'};
+  if(y) return {modo:'iframe', src:'https://www.youtube.com/embed/'+y+'?autoplay=1&rel=0&modestbranding=1&playsinline=1', thumb:'https://img.youtube.com/vi/'+y+'/hqdefault.jpg'};
   if(d) return {modo:'iframe', src:'https://drive.google.com/file/d/'+d+'/preview', thumb:'https://drive.google.com/thumbnail?id='+d+'&sz=w800'};
   return {modo:'video', src:url, thumb:''};
 }
@@ -431,14 +474,68 @@ function renderizar(){
 }
 
 /* ===== 4. Lightbox ===== */
+/* Componentes do visualizador: tudo com o design do site */
+const IC = {
+  play:'<svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>',
+  pausa:'<svg viewBox="0 0 24 24"><path d="M6 5h4v14H6zm8 0h4v14h-4z"/></svg>',
+  vol:'<svg viewBox="0 0 24 24"><path d="M3 9v6h4l5 5V4L7 9zm13.5 3A4.5 4.5 0 0 0 14 8v8a4.5 4.5 0 0 0 2.5-4z"/></svg>',
+  mudo:'<svg viewBox="0 0 24 24"><path d="M3 9v6h4l5 5V4L7 9zm13.6.6L15.2 11l1.4 1.4-1.4 1.4 1.4 1.4 1.4-1.4 1.4 1.4 1.4-1.4-1.4-1.4 1.4-1.4-1.4-1.4-1.4 1.4z"/></svg>',
+  full:'<svg viewBox="0 0 24 24"><path d="M5 5h5v2H7v3H5zm9 0h5v5h-2V7h-3zM5 14h2v3h3v2H5zm12 0h2v5h-5v-2h3z"/></svg>'
+};
+const fmtT = t => { if(!isFinite(t)) return '0:00'; const m = Math.floor(t/60), x = Math.floor(t%60); return m+':'+String(x).padStart(2,'0'); };
+function ecraInteiro(el){ try{ if(document.fullscreenElement) document.exitFullscreen(); else (el.requestFullscreen || el.webkitRequestFullscreen).call(el); }catch(e){} }
+$('lbFull').onclick = () => ecraInteiro(document.querySelector('#mLight .box'));
+
+/* Player próprio para ficheiros .mp4 */
+function playerMp4(m, src){
+  m.innerHTML = '<div class="pl"><video playsinline preload="metadata"></video><button class="pbig" type="button" aria-label="Reproduzir">'+IC.play+'</button><div class="pctl"><button class="pb" data-a="pp" type="button" aria-label="Reproduzir ou pausar"></button><span class="pt">0:00</span><input class="rg sk" type="range" min="0" max="1000" value="0" aria-label="Progresso"><span class="pd">0:00</span><button class="pb" data-a="mu" type="button" aria-label="Som"></button><input class="rg vol" type="range" min="0" max="100" value="100" aria-label="Volume"><button class="pb" data-a="fs" type="button" aria-label="Ecrã inteiro">'+IC.full+'</button></div></div>';
+  const pl = m.firstChild, v = pl.querySelector('video'), q = s => pl.querySelector(s);
+  const bpp = q('[data-a=pp]'), bmu = q('[data-a=mu]'), bfs = q('[data-a=fs]'), big = q('.pbig'), sk = q('.sk'), vol = q('.vol'), pt = q('.pt'), pd = q('.pd');
+  const pinta = el => el.style.setProperty('--p', (el.value/el.max*100)+'%');
+  const estado = () => { const on = !v.paused; pl.classList.toggle('tocando', on); bpp.innerHTML = on ? IC.pausa : IC.play; };
+  const som = () => { bmu.innerHTML = (v.muted || v.volume === 0) ? IC.mudo : IC.vol; };
+  const alterna = () => { if(v.paused){ const p = v.play(); if(p && p.catch) p.catch(()=>{}); } else v.pause(); };
+  v.src = src; estado(); som(); pinta(sk); pinta(vol);
+  ['play','pause','ended'].forEach(e => v.addEventListener(e, estado));
+  v.addEventListener('loadedmetadata', () => { pd.textContent = fmtT(v.duration); });
+  v.addEventListener('timeupdate', () => { pt.textContent = fmtT(v.currentTime); if(v.duration){ sk.value = v.currentTime/v.duration*1000; pinta(sk); } });
+  v.addEventListener('error', () => pl.insertAdjacentHTML('afterbegin', '<div class="carr">Não foi possível reproduzir este vídeo.</div>'));
+  sk.addEventListener('input', () => { if(v.duration) v.currentTime = sk.value/1000*v.duration; pinta(sk); });
+  vol.addEventListener('input', () => { v.volume = vol.value/100; v.muted = false; pinta(vol); som(); });
+  bpp.onclick = big.onclick = v.onclick = alterna;
+  bmu.onclick = () => { v.muted = !v.muted; som(); };
+  bfs.onclick = () => ecraInteiro(pl);
+  alterna();
+}
+/* Quadro para YouTube, Drive e documentos (com indicador de carregamento) */
+function quadroIframe(m, src){
+  m.innerHTML = '<div class="carr"><i></i><span>A carregar...</span></div>';
+  const f = document.createElement('iframe');
+  f.src = src; f.title = 'Conteúdo'; f.allow = 'autoplay; fullscreen; encrypted-media'; f.allowFullscreen = true;
+  f.onload = () => { const c = m.querySelector('.carr'); if(c) c.remove(); };
+  m.appendChild(f);
+}
+/* Visualizador de imagem com zoom */
+function visualizadorImagem(m, src, alt){
+  m.innerHTML = '<div class="carr"><i></i><span>A carregar...</span></div><div class="vi"><img alt=""></div><div class="vtools"><button class="pb" data-z="-" type="button" aria-label="Diminuir">−</button><span class="vz">100%</span><button class="pb" data-z="+" type="button" aria-label="Aumentar">+</button><button class="pb" data-z="0" type="button" aria-label="Ajustar ao ecrã">⤢</button></div>';
+  const img = m.querySelector('img'), vz = m.querySelector('.vz'); let z = 1;
+  const aplica = () => { img.style.cssText = z === 1 ? '' : 'width:'+(z*100)+'%;max-width:none;max-height:none'; vz.textContent = Math.round(z*100)+'%'; };
+  img.alt = alt; img.src = src;
+  img.onload = () => { const c = m.querySelector('.carr'); if(c) c.remove(); };
+  img.onerror = () => { const c = m.querySelector('.carr'); if(c) c.innerHTML = 'Não foi possível carregar a imagem.'; };
+  m.querySelectorAll('[data-z]').forEach(b => b.onclick = () => { const a = b.dataset.z; z = a==='+' ? Math.min(4, z+.5) : a==='-' ? Math.max(1, z-.5) : 1; aplica(); });
+  img.ondblclick = () => { z = z > 1 ? 1 : 2; aplica(); };
+}
+
 function abrirLightbox(item){
   const r = resolver(item), m = $('lbMedia');
   m.className = 'media' + (item.tipo==='foto' ? ' foto' : item.tipo==='documento' ? ' doc' : '');
   m.innerHTML = '';
-  if(r.modo==='img'){ const i=new Image(); i.src=r.src; i.alt=item.titulo; m.appendChild(i); }
-  else if(r.modo==='iframe'){ const f=document.createElement('iframe'); f.src=r.src; f.allow='autoplay; fullscreen; encrypted-media'; f.allowFullscreen=true; m.appendChild(f); }
-  else { const v=document.createElement('video'); v.src=r.src; v.controls=true; v.autoplay=true; m.appendChild(v); }
+  if(r.modo==='img') visualizadorImagem(m, r.src, item.titulo);
+  else if(r.modo==='iframe') quadroIframe(m, r.src);
+  else playerMp4(m, r.src);
   $('lbTitulo').textContent = item.titulo;
+  $('lbTipo').textContent = item.tipo==='documento' ? (item.formato==='word' ? 'Word' : 'PDF') : item.tipo==='foto' ? 'Foto' : 'Vídeo';
   $('lbData').textContent = fmtData(item.data);
   $('lbDesc').textContent = item.descricao || '';
   const ac = $('lbAcoes'); ac.innerHTML = '';
@@ -450,7 +547,7 @@ function abrirLightbox(item){
   abrir('mLight');
 }
 function abrir(id){ $(id).classList.add('on'); }
-function fechar(el){ el.classList.remove('on'); if(el.id==='mLight') $('lbMedia').innerHTML=''; }
+function fechar(el){ el.classList.remove('on'); if(el.id==='mLight'){ $('lbMedia').innerHTML=''; try{ if(document.fullscreenElement) document.exitFullscreen(); }catch(e){} } }
 document.querySelectorAll('.modal').forEach(m=>{
   m.addEventListener('click', e => { if(e.target===m || e.target.hasAttribute('data-fechar')) fechar(m); });
 });
