@@ -134,6 +134,16 @@ a.btn{display:inline-block;text-align:center}
 mark{background:#fff0a8;border-radius:3px;padding:0 1px}
 .media.doc{aspect-ratio:auto;height:72vh}
 @media(max-width:620px){.doc{flex-wrap:wrap}.dacoes{flex-direction:row;width:100%}}
+/* ===== Sobre nós ===== */
+.lead{font-size:1.1rem;color:var(--txt);max-width:70ch;margin:4px 0 22px;font-weight:500}
+.equipa{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:20px;margin-top:16px;max-width:720px}
+.pessoa{background:var(--fundo);border:1px solid var(--borda);border-radius:var(--r);padding:24px 18px;text-align:center;transition:transform .2s,box-shadow .2s}
+.pessoa:hover{transform:translateY(-4px);box-shadow:0 12px 28px #0b4f8a22}
+.av{width:76px;height:76px;margin:0 auto 12px;border-radius:50%;display:grid;place-items:center;background:linear-gradient(135deg,var(--azul),var(--verde));color:#fff;font-size:1.5rem;font-weight:800;letter-spacing:1px}
+.pessoa h3{font-size:1.05rem;color:var(--azul);line-height:1.3}
+.funcao{display:inline-block;margin:8px 0;padding:2px 12px;border-radius:99px;background:#dff3ea;color:#0f7a4c;font-weight:700;font-size:.82rem}
+.pessoa a{display:block;color:var(--azul2);font-size:.92rem;word-break:break-all}
+.pessoa a:hover{text-decoration:underline}
 @media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
 </style>
 </head>
@@ -178,11 +188,27 @@ mark{background:#fff0a8;border-radius:3px;padding:0 1px}
  <div class="pagina" id="pgSobre">
   <section id="sobre" class="sobre" style="min-height:60vh"><div class="wrap">
     <h2>Sobre nós</h2>
-    <p class="sub">Formação de professores de Química para as escolas de Moçambique.</p>
+    <p class="lead">Esta galeria nasceu para reunir, num só lugar, as imagens, os vídeos e os documentos do curso de Licenciatura em Ensino de Química da Universidade Licungo, em Quelimane. É um espaço de memória e de partilha para estudantes e docentes.</p>
     <div class="cols">
       <div class="bx"><h3>Formação</h3><p>Combina a base científica da Química com a didáctica, preparando docentes para ensinar com rigor e criatividade.</p></div>
       <div class="bx"><h3>Prática laboratorial</h3><p>Experiências, segurança no laboratório e produção de materiais de ensino fazem parte do percurso.</p></div>
       <div class="bx"><h3>Comunidade</h3><p>Esta galeria reúne as memórias de estudantes e docentes ao longo do curso.</p></div>
+    </div>
+
+    <h2 style="margin-top:40px">Responsáveis pela criação</h2>
+    <div class="equipa">
+      <article class="pessoa">
+        <div class="av">CD</div>
+        <h3>Coragem Gonçalves Raúl Diua</h3>
+        <span class="funcao">Desenvolvedor</span>
+        <a href="mailto:diuacoragem164@gmail.com">diuacoragem164@gmail.com</a>
+      </article>
+      <article class="pessoa">
+        <div class="av">TS</div>
+        <h3>Talaha Abdul Rassul Sulemane</h3>
+        <span class="funcao">Coordenador</span>
+        <a href="mailto:talahaabdulrassul@gmail.com">talahaabdulrassul@gmail.com</a>
+      </article>
     </div>
   </div></section>
  </div>
