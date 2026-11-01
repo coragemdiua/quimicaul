@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Ensino de Química - UniLicungo Quelimane | Galeria</title>
+<title>LEQ - UniLicungo Quelimane | Galeria</title>
 <style>
 /* ===== Variáveis ===== */
 :root{--azul:#0b4f8a;--azul2:#1479c9;--verde:#1fa56b;--fundo:#f4f9fc;--card:#fff;--txt:#14283a;--mut:#5d7387;--borda:#d8e5ee;--r:14px}
@@ -111,6 +111,29 @@ input,select,textarea{width:100%;padding:9px 11px;border:1px solid var(--borda);
 .erro{color:#c9372c;font-size:.88rem;min-height:1.2em;margin-top:6px}
 #toast{position:fixed;bottom:22px;left:50%;transform:translateX(-50%) translateY(80px);background:var(--azul);color:#fff;padding:11px 20px;border-radius:99px;z-index:200;transition:transform .3s;font-weight:600}
 #toast.on{transform:translateX(-50%)}
+/* ===== Páginas e Documentos ===== */
+.pagina{display:none}.pagina.on{display:block;animation:fade .25s}
+nav a.act{background:#ffffff38}
+a.btn{display:inline-block;text-align:center}
+@media(max-width:640px){nav{flex-wrap:wrap;justify-content:center}}
+.busca{background:#fff;border:1px solid var(--borda);border-radius:var(--r);padding:16px;margin-bottom:18px;box-shadow:0 4px 14px #0b4f8a10}
+.bcampo{display:flex;gap:10px}
+.fil{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:12px;margin-top:6px}
+.dica{font-size:.85rem;color:var(--mut);margin-top:10px}
+#qContagem{font-weight:600;color:var(--azul);margin-bottom:12px}
+#listaDocs{display:grid;gap:14px}
+.doc{display:flex;gap:16px;align-items:flex-start;background:#fff;border:1px solid var(--borda);border-radius:var(--r);padding:16px;transition:box-shadow .2s}
+.doc:hover{box-shadow:0 8px 22px #0b4f8a1c}
+.fmt{flex:none;width:54px;height:62px;border-radius:10px;display:grid;place-items:center;color:#fff;font-weight:800;font-size:.85rem}
+.fmt.p{background:#d64545}.fmt.w{background:var(--azul2)}
+.dinfo{flex:1;min-width:0}.dinfo h3{font-size:1.08rem;color:var(--azul)}
+.meta{font-size:.85rem;color:var(--mut);margin:2px 0 6px}
+.chips{display:flex;gap:6px;flex-wrap:wrap;margin-top:8px}
+.chip{border:0;background:#dff3ea;color:#0f7a4c;border-radius:99px;padding:2px 10px;font-size:.78rem;font-weight:600;cursor:pointer}
+.dacoes{display:flex;flex-direction:column;gap:8px}
+mark{background:#fff0a8;border-radius:3px;padding:0 1px}
+.media.doc{aspect-ratio:auto;height:72vh}
+@media(max-width:620px){.doc{flex-wrap:wrap}.dacoes{flex-direction:row;width:100%}}
 @media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
 </style>
 </head>
@@ -120,15 +143,17 @@ input,select,textarea{width:100%;padding:9px 11px;border:1px solid var(--borda);
   <div class="wrap bar">
     <!-- 7 cliques em menos de 4 s no logotipo abrem o acesso ao ADM -->
     <div id="logo" role="img" aria-label="LEQ - UniLicungo Quelimane">
-      <span id="logoIcone"></span><span>Ensino de Química - UniLicungo Quelimane</span>
+      <span id="logoIcone"></span><span>LEQ - UniLicungo Quelimane</span>
     </div>
     <nav>
-      <a href="#inicio">Início</a><a href="#videos">Vídeos</a><a href="#fotos">Fotos</a><a href="#sobre">Sobre o Curso</a>
+      <a href="#inicio">Início</a><a href="#documentos">Documentos</a><a href="#sobre">Sobre nós</a>
     </nav>
   </div>
 </header>
 
 <main>
+ <!-- PÁGINA 1: Galeria de fotos e vídeos -->
+ <div class="pagina on" id="pgGaleria">
   <div class="hero" id="inicio">
     <div class="wrap">
       <h1>A Química do nosso curso em imagem e vídeo</h1>
@@ -147,8 +172,12 @@ input,select,textarea{width:100%;padding:9px 11px;border:1px solid var(--borda);
     <div id="gridFotos"></div>
   </div></section>
 
-  <section id="sobre" class="sobre"><div class="wrap">
-    <h2>Sobre o Curso</h2>
+ </div>
+
+ <!-- PÁGINA: Sobre nós -->
+ <div class="pagina" id="pgSobre">
+  <section id="sobre" class="sobre" style="min-height:60vh"><div class="wrap">
+    <h2>Sobre nós</h2>
     <p class="sub">Formação de professores de Química para as escolas de Moçambique.</p>
     <div class="cols">
       <div class="bx"><h3>Formação</h3><p>Combina a base científica da Química com a didáctica, preparando docentes para ensinar com rigor e criatividade.</p></div>
@@ -156,15 +185,43 @@ input,select,textarea{width:100%;padding:9px 11px;border:1px solid var(--borda);
       <div class="bx"><h3>Comunidade</h3><p>Esta galeria reúne as memórias de estudantes e docentes ao longo do curso.</p></div>
     </div>
   </div></section>
+ </div>
+
+ <!-- PÁGINA 2: Documentos (PDF e Word) com pesquisa avançada -->
+ <div class="pagina" id="pgDocs">
+  <div class="hero" style="padding:40px 0 24px"><div class="wrap">
+    <h1>Documentos</h1>
+    <p>Fichas, manuais, artigos e trabalhos do curso em PDF e Word.</p>
+  </div></div>
+  <section style="padding-top:28px"><div class="wrap">
+    <div class="busca">
+      <div class="bcampo">
+        <input id="qTexto" type="search" placeholder='Pesquisar por título, autor, assunto...' aria-label="Pesquisar documentos">
+        <button class="btn c" id="qLimpar" type="button">Limpar</button>
+      </div>
+      <div class="fil">
+        <div><label for="qFormato">Formato</label><select id="qFormato"><option value="">Todos</option><option value="pdf">PDF</option><option value="word">Word</option></select></div>
+        <div><label for="qCategoria">Categoria</label><select id="qCategoria"></select></div>
+        <div><label for="qAutor">Autor</label><input id="qAutor"></div>
+        <div><label for="qDe">Data desde</label><input id="qDe" type="date"></div>
+        <div><label for="qAte">Data até</label><input id="qAte" type="date"></div>
+        <div><label for="qOrdem">Ordenar por</label><select id="qOrdem"><option value="rec">Mais recentes</option><option value="ant">Mais antigos</option><option value="tit">Título (A-Z)</option></select></div>
+      </div>
+      <div class="dica">Dica: todas as palavras têm de existir; use "aspas" para frase exacta e um sinal - para excluir (ex.: ácidos -bases). Acentos e maiúsculas são ignorados.</div>
+    </div>
+    <div id="qContagem" aria-live="polite"></div>
+    <div id="listaDocs"></div>
+  </div></section>
+ </div>
 </main>
 
-<footer>Universidade Licungo - Quelimane - Licenciatura em Ensino de Química - Talaha Abdul Rassul</footer>
+<footer>Universidade Licungo - Quelimane - Licenciatura em Ensino de Química</footer>
 
 <!-- Lightbox -->
 <div class="modal" id="mLight"><div class="box">
   <button class="fechar" data-fechar aria-label="Fechar">×</button>
   <div class="media" id="lbMedia"></div>
-  <div class="legenda"><h3 id="lbTitulo"></h3><time id="lbData"></time><p id="lbDesc"></p></div>
+  <div class="legenda"><h3 id="lbTitulo"></h3><time id="lbData"></time><p id="lbDesc"></p><div class="row" id="lbAcoes"></div></div>
 </div></div>
 
 <!-- Pedido de código -->
@@ -188,8 +245,14 @@ input,select,textarea{width:100%;padding:9px 11px;border:1px solid var(--borda);
     <div class="l2">
       <div><label for="fTitulo">Título</label><input id="fTitulo"></div>
       <div><label for="fData">Data</label><input id="fData" type="date"></div>
-      <div><label for="fTipo">Tipo</label><select id="fTipo"><option value="video">Vídeo</option><option value="foto">Foto</option></select></div>
-      <div><label for="fLink">Link (Drive, YouTube ou .mp4)</label><input id="fLink" placeholder="https://drive.google.com/file/d/..."></div>
+      <div><label for="fTipo">Tipo</label><select id="fTipo"><option value="video">Vídeo</option><option value="foto">Foto</option><option value="documento">Documento (PDF/Word)</option></select></div>
+      <div><label for="fLink">Link (Drive, YouTube, .mp4, PDF ou Word)</label><input id="fLink" placeholder="https://drive.google.com/file/d/..."></div>
+    </div>
+    <div class="l2" id="extraDoc" style="display:none">
+      <div><label for="fFormato">Formato do documento</label><select id="fFormato"><option value="pdf">PDF</option><option value="word">Word</option></select></div>
+      <div><label for="fCategoria">Categoria</label><input id="fCategoria" list="catList" placeholder="Ex.: Fichas de exercícios"><datalist id="catList"></datalist></div>
+      <div><label for="fAutor">Autor</label><input id="fAutor"></div>
+      <div><label for="fTags">Etiquetas (separadas por vírgula)</label><input id="fTags"></div>
     </div>
     <label for="fDesc">Descrição</label><textarea id="fDesc" rows="3"></textarea>
     <div class="erro" id="erroForm"></div>
@@ -279,7 +342,7 @@ async function carregar(){
   if(!NUVEM){ itens = ler(K.itens, []); logoAtual = ler(K.logo, null); return; }
   try{
     const docs = await fsLista();
-    itens = docs.filter(d => d.tipo==='video' || d.tipo==='foto');
+    itens = docs.filter(d => ['video','foto','documento'].includes(d.tipo));
     const lg = docs.find(d => d.id==='logo'); logoAtual = lg ? lg.link : null;
   }catch(e){ toast('Não foi possível ligar ao Firebase.'); }
 }
@@ -300,6 +363,10 @@ function idYoutube(url){
 function resolver(item){
   const url = (item.link||'').trim();
   const d = idDrive(url), y = idYoutube(url);
+  if(item.tipo === 'documento'){
+    if(d) return {modo:'iframe', src:'https://drive.google.com/file/d/'+d+'/preview', thumb:''};
+    return {modo:'iframe', src:(item.formato==='word' ? 'https://view.officeapps.live.com/op/embed.aspx?src='+encodeURIComponent(url) : url), thumb:''};
+  }
   if(item.tipo === 'foto'){
     if(d){ const s = 'https://drive.google.com/thumbnail?id='+d+'&sz=w1600'; return {modo:'img', src:s, thumb:'https://drive.google.com/thumbnail?id='+d+'&sz=w800'}; }
     return {modo:'img', src:url, thumb:url};
@@ -334,13 +401,13 @@ function renderizar(){
   const vs = ord.filter(i=>i.tipo==='video'), fs = ord.filter(i=>i.tipo==='foto');
   if(!vs.length) gv.innerHTML = '<div class="vazio">Ainda não há vídeos publicados.</div>'; else vs.forEach(i=>gv.appendChild(cartao(i)));
   if(!fs.length) gf.innerHTML = '<div class="vazio">Ainda não há fotos publicadas.</div>'; else fs.forEach(i=>gf.appendChild(cartao(i)));
-  renderLista();
+  renderLista(); renderDocs();
 }
 
 /* ===== 4. Lightbox ===== */
 function abrirLightbox(item){
   const r = resolver(item), m = $('lbMedia');
-  m.className = 'media' + (item.tipo==='foto' ? ' foto' : '');
+  m.className = 'media' + (item.tipo==='foto' ? ' foto' : item.tipo==='documento' ? ' doc' : '');
   m.innerHTML = '';
   if(r.modo==='img'){ const i=new Image(); i.src=r.src; i.alt=item.titulo; m.appendChild(i); }
   else if(r.modo==='iframe'){ const f=document.createElement('iframe'); f.src=r.src; f.allow='autoplay; fullscreen; encrypted-media'; f.allowFullscreen=true; m.appendChild(f); }
@@ -348,6 +415,12 @@ function abrirLightbox(item){
   $('lbTitulo').textContent = item.titulo;
   $('lbData').textContent = fmtData(item.data);
   $('lbDesc').textContent = item.descricao || '';
+  const ac = $('lbAcoes'); ac.innerHTML = '';
+  if(item.tipo === 'documento'){
+    const a1 = document.createElement('a'); a1.className='btn v'; a1.textContent='Descarregar'; a1.href=urlDownload(item); a1.target='_blank'; a1.rel='noopener';
+    const a2 = document.createElement('a'); a2.className='btn c'; a2.textContent='Abrir noutra aba'; a2.href=item.link; a2.target='_blank'; a2.rel='noopener';
+    ac.append(a1, a2);
+  }
   abrir('mLight');
 }
 function abrir(id){ $(id).classList.add('on'); }
@@ -398,15 +471,16 @@ $('btnAdd').onclick = async () => {
   if(!/^https?:\/\//i.test(link)){ $('erroForm').textContent = 'O link deve começar por http:// ou https://.'; return; }
   $('erroForm').textContent = '';
   const novo = {id:Date.now().toString(36), titulo, descricao:$('fDesc').value.trim(), tipo:$('fTipo').value, link, data:$('fData').value};
+  if(novo.tipo==='documento') Object.assign(novo, {formato:$('fFormato').value, categoria:$('fCategoria').value.trim(), autor:$('fAutor').value.trim(), tags:$('fTags').value.trim()});
   if(!(await persistir(() => NUVEM ? fsGravar(novo.id, novo) : gravar(K.itens, [...itens, novo])))) return;
-  itens.push(novo); renderizar(); ['fTitulo','fDesc','fLink'].forEach(i=>$(i).value=''); toast('Item adicionado');
+  itens.push(novo); renderizar(); ['fTitulo','fDesc','fLink','fAutor','fTags'].forEach(i=>$(i).value=''); toast('Item adicionado');
 };
 function renderLista(){
   const L = $('lista'); L.innerHTML = '';
   if(!itens.length){ L.innerHTML = '<p class="sub" style="margin:8px 0 0">Nenhum item adicionado.</p>'; return; }
   itens.forEach(it => {
     const d = document.createElement('div'); d.className='item';
-    d.innerHTML = '<span class="tag '+(it.tipo==='video'?'v':'')+'">'+(it.tipo==='video'?'Vídeo':'Foto')+'</span><b>'+esc(it.titulo)+'</b>';
+    d.innerHTML = '<span class="tag '+(it.tipo==='video'?'v':'')+'">'+({video:'Vídeo',foto:'Foto',documento:'Doc'}[it.tipo]||it.tipo)+'</span><b>'+esc(it.titulo)+'</b>';
     const b = document.createElement('button'); b.className='btn x'; b.textContent='Excluir';
     b.onclick = async () => { if(confirm('Excluir "'+it.titulo+'"?')){
       const resto = itens.filter(x=>x.id!==it.id);
@@ -463,7 +537,7 @@ $('fileImp').onchange = e => {
       const d = JSON.parse(rd.result), lista = Array.isArray(d) ? d : d.itens;
       if(!Array.isArray(lista)) throw 0;
       if(!confirm('Importar '+lista.length+' itens?'+(NUVEM?' Os itens actuais serão mantidos.':' A galeria actual será substituída.'))) return;
-      const novos = lista.filter(i=>i && i.titulo && i.link).map(i=>({id:i.id||Date.now().toString(36)+Math.random().toString(36).slice(2,5), titulo:String(i.titulo), descricao:String(i.descricao||''), tipo:i.tipo==='foto'?'foto':'video', link:String(i.link), data:String(i.data||'')}));
+      const novos = lista.filter(i=>i && i.titulo && i.link).map(i=>({id:i.id||Date.now().toString(36)+Math.random().toString(36).slice(2,5), titulo:String(i.titulo), descricao:String(i.descricao||''), tipo:['foto','documento'].includes(i.tipo)?i.tipo:'video', formato:String(i.formato||''), categoria:String(i.categoria||''), autor:String(i.autor||''), tags:String(i.tags||''), link:String(i.link), data:String(i.data||'')}));
       if(NUVEM){ for(const i of novos) await fsGravar(i.id, i); if(d.logo) await fsGravar('logo', {tipo:'logo', link:d.logo}); await carregar(); }
       else { itens = novos; gravar(K.itens, itens); if(d.logo){ gravar(K.logo, d.logo); logoAtual = d.logo; } }
       aplicarLogo(); renderizar(); toast('Backup importado');
@@ -473,11 +547,94 @@ $('fileImp').onchange = e => {
   rd.readAsText(f);
 };
 
+/* ===== 11. Página de Documentos: pesquisa avançada ===== */
+const norm = t => String(t||'').normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase();
+function urlDownload(item){ const d = idDrive(item.link||''); return d ? 'https://drive.google.com/uc?export=download&id='+d : item.link; }
+/* "frase exacta", -excluir, palavras soltas (todas obrigatórias) */
+function parseBusca(q){
+  const incl = [], excl = [], re = /(-?)"([^"]+)"|(-?)(\S+)/g; let m;
+  while((m = re.exec(q))){ const t = norm(m[2]||m[4]).trim(); if(!t) continue; ((m[1]||m[3])==='-' ? excl : incl).push(t); }
+  return {incl, excl};
+}
+/* Destaca os termos pesquisados (só se o texto não mudar de tamanho ao normalizar) */
+function hl(t, termos){
+  t = String(t||''); const n = norm(t);
+  if(!termos.length || n.length !== t.length) return esc(t);
+  const mk = new Array(t.length).fill(false);
+  termos.forEach(x => { let i = n.indexOf(x); while(i >= 0){ for(let k=i;k<i+x.length;k++) mk[k]=true; i = n.indexOf(x, i+x.length); } });
+  let out = '', ab = false;
+  for(let i=0;i<t.length;i++){ if(mk[i]&&!ab){out+='<mark>';ab=true;} if(!mk[i]&&ab){out+='</mark>';ab=false;} out+=esc(t[i]); }
+  return out + (ab?'</mark>':'');
+}
+function renderDocs(){
+  const todos = itens.filter(i => i.tipo==='documento');
+  const sel = $('qCategoria'), atual = sel.value;
+  const cats = [...new Set(todos.map(d=>d.categoria).filter(Boolean))].sort((a,b)=>a.localeCompare(b,'pt'));
+  sel.innerHTML = '<option value="">Todas</option>' + cats.map(c=>'<option>'+esc(c)+'</option>').join('');
+  sel.value = cats.includes(atual) ? atual : '';
+  $('catList').innerHTML = cats.map(c=>'<option value="'+esc(c)+'">').join('');
+
+  const {incl, excl} = parseBusca($('qTexto').value);
+  const fmt = $('qFormato').value, cat = sel.value, aut = norm($('qAutor').value.trim()), de = $('qDe').value, ate = $('qAte').value;
+  const r = todos.filter(d => {
+    const campo = norm([d.titulo, d.descricao, d.autor, d.categoria, d.tags].join(' \n '));
+    if(incl.some(t=>!campo.includes(t)) || excl.some(t=>campo.includes(t))) return false;
+    if(fmt && (d.formato||'pdf') !== fmt) return false;
+    if(cat && d.categoria !== cat) return false;
+    if(aut && !norm(d.autor).includes(aut)) return false;
+    if(de && (d.data||'') < de) return false;
+    if(ate && (d.data||'') > ate) return false;
+    return true;
+  });
+  const o = $('qOrdem').value;
+  r.sort((a,b) => o==='tit' ? a.titulo.localeCompare(b.titulo,'pt') : o==='ant' ? (a.data||'').localeCompare(b.data||'') : (b.data||'').localeCompare(a.data||''));
+
+  $('qContagem').textContent = r.length + ' de ' + todos.length + (todos.length===1 ? ' documento' : ' documentos');
+  const L = $('listaDocs'); L.innerHTML = '';
+  if(!r.length){ L.innerHTML = '<div class="vazio">' + (todos.length ? 'Nenhum documento corresponde à pesquisa.' : 'Ainda não há documentos publicados.') + '</div>'; return; }
+  r.forEach(d => {
+    const word = d.formato === 'word', el = document.createElement('article'); el.className = 'doc';
+    const meta = [d.categoria, d.autor, fmtData(d.data)].filter(Boolean).map(esc).join(' · ');
+    el.innerHTML = '<div class="fmt '+(word?'w':'p')+'">'+(word?'DOC':'PDF')+'</div><div class="dinfo"><h3>'+hl(d.titulo,incl)+'</h3><div class="meta">'+meta+'</div>'+(d.descricao?'<p>'+hl(d.descricao,incl)+'</p>':'')+'<div class="chips"></div></div><div class="dacoes"></div>';
+    (d.tags||'').split(',').map(t=>t.trim()).filter(Boolean).forEach(t => {
+      const c = document.createElement('button'); c.type='button'; c.className='chip'; c.textContent=t;
+      c.onclick = () => { $('qTexto').value = t; renderDocs(); }; el.querySelector('.chips').appendChild(c);
+    });
+    const ver = document.createElement('button'); ver.className='btn'; ver.type='button'; ver.textContent='Visualizar'; ver.onclick = () => abrirLightbox(d);
+    const baixar = document.createElement('a'); baixar.className='btn v'; baixar.textContent='Descarregar'; baixar.href=urlDownload(d); baixar.target='_blank'; baixar.rel='noopener';
+    el.querySelector('.dacoes').append(ver, baixar); L.appendChild(el);
+  });
+}
+['qTexto','qAutor','qDe','qAte'].forEach(i => $(i).addEventListener('input', renderDocs));
+['qFormato','qCategoria','qOrdem'].forEach(i => $(i).addEventListener('change', renderDocs));
+$('qLimpar').onclick = () => { ['qTexto','qAutor','qDe','qAte'].forEach(i=>$(i).value=''); $('qFormato').value=''; $('qCategoria').value=''; $('qOrdem').value='rec'; renderDocs(); };
+$('fTipo').onchange = () => { $('extraDoc').style.display = $('fTipo').value==='documento' ? '' : 'none'; };
+
+/* ===== 12. Navegação entre as duas páginas (#documentos = Documentos; o resto = Galeria) ===== */
+const PAGINAS = {'#documentos':'pgDocs', '#sobre':'pgSobre'};
+function router(h){
+  h = typeof h === 'string' ? h : location.hash;
+  const alvo = PAGINAS[h] || 'pgGaleria';
+  ['pgGaleria','pgDocs','pgSobre'].forEach(id => $(id).classList.toggle('on', id === alvo));
+  const ativo = alvo==='pgDocs' ? '#documentos' : alvo==='pgSobre' ? '#sobre' : '#inicio';
+  document.querySelectorAll('nav a').forEach(a => a.classList.toggle('act', a.getAttribute('href') === ativo));
+  window.scrollTo(0,0);
+}
+/* Os links do menu trocam de página directamente (funciona mesmo quando o navegador não dispara hashchange) */
+document.querySelectorAll('nav a').forEach(a => a.addEventListener('click', e => {
+  e.preventDefault();
+  const h = a.getAttribute('href');
+  try{ history.replaceState(null, '', h); }catch(_){}
+  router(h);
+}));
+window.addEventListener('hashchange', () => router());
+
 /* ===== Arranque ===== */
 if(NUVEM) $('pnCodigo').style.display = 'none'; /* a palavra-passe passa a ser gerida no Firebase */
 aplicarLogo();
 renderizar();
 carregar().then(() => { aplicarLogo(); renderizar(); });
+router();
 </script>
 </body>
 </html>
